@@ -20,6 +20,9 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VideoInfoResponse {
+
+    private String videoId;
+
     private String title;
 
     private String description;
