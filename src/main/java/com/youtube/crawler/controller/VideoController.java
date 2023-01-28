@@ -3,7 +3,7 @@ package com.youtube.crawler.controller;
 
 import com.youtube.crawler.model.response.VideoInfoResponse;
 import com.youtube.crawler.model.VideoSearchRequest;
-import com.youtube.crawler.service.VideoService;
+import com.youtube.crawler.service.IVideoService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +22,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VideoController {
 
-    private VideoService videoService;
+    private IVideoService videoService;
 
     @Autowired
-    public VideoController(@NonNull final VideoService videoService) {
-        this.videoService = videoService;
+    public VideoController(@NonNull final IVideoService videoServiceImpl) {
+        this.videoService = videoServiceImpl;
     }
 
     @GetMapping

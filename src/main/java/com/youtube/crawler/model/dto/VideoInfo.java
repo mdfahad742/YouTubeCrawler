@@ -1,52 +1,50 @@
 package com.youtube.crawler.model.dto;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Table;
+
+import com.youtube.crawler.util.Constant;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
+
 @Entity
-@Table(schema = "video", name = "video_info")
+@Table(name = "video_info", indexes = {
+        @Index(name = Constant.IDX_TITLE, columnList = Constant.TITLE),
+        @Index(name = Constant.IDX_DESCRIPTION, columnList = Constant.DESCRIPTION)
+})
 @Getter
 @Setter
 @EqualsAndHashCode
 public class VideoInfo {
 
-    private static final String VIDEO_ID = "video_id";
-
-    private static final String TITLE = "title";
-    private static final String DESCRIPTION = "description";
-
-    private static final String PUBLISHED_DATETIME = "published_datetime";
-
-
-    @Id
+    @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = VIDEO_ID, nullable = false)
+    @Column(name = Constant.VIDEO_ID, nullable = false)
     private Long videoId;
 
-    @Column(name = TITLE)
+    @Column(name = Constant.TITLE, nullable = false)
     private String title;
 
-    @Column(name = DESCRIPTION)
+    @Column(name = Constant.DESCRIPTION)
     private String description;
 
-    @Column(name = PUBLISHED_DATETIME)
+    @Column(name = Constant.PUBLISHED_DATETIME, nullable = false)
     private Date publishedDatetime;
 
     @ElementCollection
-    @CollectionTable(name = "video_thumbnails", joinColumns = @JoinColumn(name = "video_id"))
-    @Column(name = "thumbnail_url")
+    @CollectionTable(name = Constant.VIDEO_THUMBNAILS, joinColumns = @JoinColumn(name = Constant.VIDEO_ID))
+    @Column(name = Constant.THUMBNAIL_URL)
     private List<String> thumbnailUrls;
 }

@@ -16,12 +16,12 @@ import java.util.List;
 
 
 @Service
-public class VideoService {
+public class VideoServiceImpl implements IVideoService {
 
     private VideoRepository videoRepository;
 
     @Autowired
-    public VideoService(@NonNull final VideoRepository videoRepository) {
+    public VideoServiceImpl(@NonNull final VideoRepository videoRepository) {
         this.videoRepository = videoRepository;
     }
 
