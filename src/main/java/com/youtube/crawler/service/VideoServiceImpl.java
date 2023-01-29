@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,9 +27,6 @@ public class VideoServiceImpl implements IVideoService {
     private VideoRepository videoRepository;
 
     private IYoutubeCrawlerService youtubeCrawlerService;
-
-//    @Autowired
-//    private VideoInfoMapper videoInfoMapper;
 
     @Autowired
     public VideoServiceImpl(@NonNull final VideoRepository videoRepository,
@@ -62,7 +60,7 @@ public class VideoServiceImpl implements IVideoService {
                 .build();
     }
 
-//    @Scheduled(initialDelay = 1000, fixedRate = 20000)
+    @Scheduled(initialDelay = 1000, fixedRate = 20000)
     public List<SearchResult> fetchVideos() {
         final String query = "cricket";
         log.info("Videos triggered at: {}", System.currentTimeMillis());
