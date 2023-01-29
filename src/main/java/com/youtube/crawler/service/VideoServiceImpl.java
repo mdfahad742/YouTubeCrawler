@@ -60,7 +60,7 @@ public class VideoServiceImpl implements IVideoService {
                 .build();
     }
 
-    @Scheduled(initialDelay = 1000, fixedRate = 20000)
+    @Scheduled(initialDelay = 1000, fixedRate = 10000)
     public List<SearchResult> fetchVideos() {
         final String query = "cricket";
         log.info("Videos triggered at: {}", System.currentTimeMillis());
