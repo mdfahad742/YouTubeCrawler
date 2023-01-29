@@ -80,6 +80,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>crawler-docker</finalName>
 	</build>
 
 </project>

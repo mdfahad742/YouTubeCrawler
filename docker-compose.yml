@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  app:
+    container_name: crawler-docker
+    image: crawler-docker
+    build: ./
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres_db
+    environment:
+      - spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_db:5432/postgres
+      - spring.jpa.hibernate.ddl-auto=create
+      - spring.jpa.show-sql=true
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+      - spring.datasource.username=postgres
+      - spring.datasource.password=fahad
+      - server.port=8080
+
+  postgres_db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: fahad
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
