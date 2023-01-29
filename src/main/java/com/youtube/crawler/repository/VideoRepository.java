@@ -15,6 +15,8 @@ public interface VideoRepository extends JpaRepository<VideoInfo, Long> {
     Page<VideoInfo> findAll(@NonNull final Pageable pageable);
 
 
+//    @Query(value = "SELECT * FROM video_info WHERE title LIKE %:title% OR description LIKE %:description%", nativeQuery = true)
+//
 //    SELECT * FROM video_info WHERE title LIKE '%tea%' OR description LIKE '%tea%' -> Optimization (Elastic Search)
     Page<VideoInfo> findByTitleContainingOrDescriptionContaining(@NonNull final String title,
                                                                  @NonNull final String description,

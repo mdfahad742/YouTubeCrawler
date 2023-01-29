@@ -1,7 +1,6 @@
 package com.youtube.crawler.model.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.youtube.crawler.model.external.SearchResult;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,7 +27,7 @@ public class VideoInfoResponse {
 
     private String description;
 
-    private Date publishedDateTime;
+    private Date publishedAt;
 
     private List<String> thumbnailUrls;
 }

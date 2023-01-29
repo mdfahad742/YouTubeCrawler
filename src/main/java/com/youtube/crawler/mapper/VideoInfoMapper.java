@@ -18,6 +18,7 @@ import java.util.List;
 public interface VideoInfoMapper {
     static final VideoInfoMapper INSTANCE = Mappers.getMapper(VideoInfoMapper.class);
 
+    @Mapping(source = "publishedDatetime", target = "publishedAt")
     VideoInfoResponse buildVideoInfoResponseFromVideoInfo(@NonNull final VideoInfo videoInfo);
 
     @Mapping(source = "id.videoId", target = "videoId")

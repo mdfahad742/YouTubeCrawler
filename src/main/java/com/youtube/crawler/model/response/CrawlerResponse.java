@@ -1,23 +1,26 @@
-package com.youtube.crawler.model;
-
+package com.youtube.crawler.model.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 
 @ToString
 @Builder
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VideoSearchRequest {
-    private String title;
+public class CrawlerResponse {
 
-    private String description;
+    private int totalCount;
+
+    private List<VideoInfoResponse> videoInfoResponses;
 }

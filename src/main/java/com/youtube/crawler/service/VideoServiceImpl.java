@@ -4,6 +4,7 @@ import com.google.api.services.youtube.model.SearchResult;
 import com.youtube.crawler.mapper.VideoInfoMapper;
 import com.youtube.crawler.model.VideoSearchRequest;
 import com.youtube.crawler.model.dto.VideoInfo;
+import com.youtube.crawler.model.response.CrawlerResponse;
 import com.youtube.crawler.model.response.VideoInfoResponse;
 import com.youtube.crawler.repository.VideoRepository;
 import lombok.NonNull;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,23 +37,32 @@ public class VideoServiceImpl implements IVideoService {
         this.youtubeCrawlerService = youtubeCrawlerService;
     }
 
-    public List<VideoInfoResponse> getVideos(@NonNull final Pageable pageable) {
+    public CrawlerResponse getVideos(@NonNull final Pageable pageable) {
         final Page<VideoInfo> videoInfoPage = videoRepository.findAll(pageable);
-        final List<VideoInfoResponse> videoInfoResponsePage = VideoInfoMapper.INSTANCE.buildVideoInfoResponseListFromVideoInfoList(
+        final List<VideoInfoResponse> videoInfoResponses = VideoInfoMapper.INSTANCE.buildVideoInfoResponseListFromVideoInfoList(
                 videoInfoPage.getContent());
-        return videoInfoResponsePage;
+
+        return CrawlerResponse
+                .builder()
+                .videoInfoResponses(videoInfoResponses)
+                .totalCount(videoInfoResponses.size())
+                .build();
     }
 
-    public List<VideoInfoResponse> searchVideos(@NonNull final VideoSearchRequest request,
+    public CrawlerResponse searchVideos(@NonNull final VideoSearchRequest request,
                                               @NonNull final Pageable pageable) {
         final Page<VideoInfo> videoInfoPage = videoRepository.findByTitleContainingOrDescriptionContaining(
                 request.getTitle(), request.getDescription(), pageable);
-        final List<VideoInfoResponse> videoInfoResponsePage = VideoInfoMapper.INSTANCE.buildVideoInfoResponseListFromVideoInfoList(
+        final List<VideoInfoResponse> videoInfoResponses = VideoInfoMapper.INSTANCE.buildVideoInfoResponseListFromVideoInfoList(
                 videoInfoPage.getContent());
-        return videoInfoResponsePage;
+        return CrawlerResponse
+                .builder()
+                .videoInfoResponses(videoInfoResponses)
+                .totalCount(videoInfoResponses.size())
+                .build();
     }
 
-    @Scheduled(initialDelay = 1000, fixedRate = 20000)
+//    @Scheduled(initialDelay = 1000, fixedRate = 20000)
     public List<SearchResult> fetchVideos() {
         final String query = "cricket";
         log.info("Videos triggered at: {}", System.currentTimeMillis());
