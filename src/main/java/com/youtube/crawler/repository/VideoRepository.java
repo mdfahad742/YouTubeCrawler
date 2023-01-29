@@ -13,6 +13,9 @@ import org.springframework.stereotype.Repository;
 public interface VideoRepository extends JpaRepository<VideoInfo, Long> {
 
     Page<VideoInfo> findAll(@NonNull final Pageable pageable);
+
+
+//    SELECT * FROM video_info WHERE title LIKE '%tea%' OR description LIKE '%tea%' -> Optimization (Elastic Search)
     Page<VideoInfo> findByTitleContainingOrDescriptionContaining(@NonNull final String title,
                                                                  @NonNull final String description,
                                                                  @NonNull Pageable pageable);

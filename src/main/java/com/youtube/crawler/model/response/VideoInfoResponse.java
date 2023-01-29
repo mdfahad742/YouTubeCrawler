@@ -1,6 +1,7 @@
 package com.youtube.crawler.model.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.youtube.crawler.model.external.SearchResult;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

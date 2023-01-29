@@ -3,7 +3,7 @@ package com.youtube.crawler.util;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class Constant {
+public class Constants {
     public static final String VIDEO_ID = "video_id";
 
     public static final String TITLE = "title";
@@ -18,7 +18,9 @@ public class Constant {
 
     public static final String IDX_DESCRIPTION = "idx_description";
 
-
-
     public static final String VIDEO_THUMBNAILS = "video_thumbnails";
+
+    public static final String API_KEY = "AIzaSyBFUj2aUhsRtmLQJIEjJB93hunOUMDwiNw"; // move to application.props
+
+    public static final long NUMBER_OF_VIDEOS_RETURNED = 50;
 }
